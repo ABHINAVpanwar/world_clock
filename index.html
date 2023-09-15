@@ -175,7 +175,7 @@
       }
 
       function fetchJSONData() {
-        fetch(`http://worldtimeapi.org/api/timezone/${continent}/${city}`)
+        fetch(`https://worldtimeapi.org/api/timezone/${continent}/${city}`)
           .then((response) => response.json())
           .then((data) => {
             console.log(data);
