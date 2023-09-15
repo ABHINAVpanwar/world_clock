@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="icon.png">  
+    <link rel="icon" type="image/x-icon" href="icon.png" />
     <title>World Clock</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Lato&family=PT+Sans:ital@1&family=Poppins&display=swap");
@@ -85,11 +85,44 @@
       }
 
       #place {
-        margin-right: 5vw;
+        margin-right: 4vw;
       }
 
       #time {
-        margin-left: 5vw;
+        margin-left: 4vw;
+      }
+
+      #day {
+        margin-left: 8vw;
+      }
+
+      @media only screen and (max-width: 600px) {
+        #div {
+          margin-top: 5vh;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          height: 14%;
+          width: 60%;
+          border: 4px solid black;
+          border-radius: 40px;
+          background-color: #dd4457;
+          opacity: 0.8;
+          font-size: 10px;
+          color: white;
+        }
+        #place {
+          margin-right: 2vw;
+        }
+
+        #time {
+          margin-left: 2vw;
+        }
+
+        #day {
+          margin-left: 4vw;
+        }
       }
     </style>
   </head>
@@ -103,14 +136,17 @@
     <div id="div">
       <h2 id="place"></h2>
       <h2 id="time"></h2>
+      <h2 id="day"></h2>
     </div>
     <script>
       let T = document.getElementById("time");
       let P = document.getElementById("place");
+      let D = document.getElementById("day");
       let I1 = document.getElementById("first");
       let I2 = document.getElementById("second");
       let continent = "";
       let city = "";
+      let day = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
       function func() {
         if (I1.value.length == 0 || I2.value.length == 0) {
@@ -144,8 +180,10 @@
             console.log(data);
             T.innerHTML = data.datetime.split("T")[1].split(".")[0];
             P.innerHTML = city;
+            D.innerHTML = day[data.day_of_week - 1];
           })
           .catch((error) => {
+            alert("INPUT MISSING OR INCORRECT");
             console.error("Error fetching JSON data:", error);
           });
       }
