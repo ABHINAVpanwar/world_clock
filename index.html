@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Clock</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lato&family=PT+Sans:ital@1&family=Poppins&display=swap");
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Lato", sans-serif;
+        font-family: "Poppins", sans-serif;
+        font-family: "PT Sans", sans-serif;
+        height: 100vh;
+        background-color: #436b6d;
+      }
+
+      #section {
+        margin-top: 5vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60%;
+        width: 60%;
+        border: 4px solid black;
+        border-radius: 40px;
+        background-color: #e5a833;
+        opacity: 0.8;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      input {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 30vw;
+        height: 5vh;
+        padding-left: 10px;
+        border-radius: 40px;
+        border: 2px solid black;
+      }
+
+      input:hover {
+        cursor: pointer;
+      }
+
+      button {
+        margin-top: 20px;
+        height: 5vh;
+        width: 20vw;
+        border-radius: 40px;
+        border: 2px solid black;
+      }
+
+      button:hover {
+        cursor: pointer;
+        color: white;
+        height: 5.5vh;
+        font-size: 12px;
+        border: 4px solid white;
+        background-color: #193b71;
+      }
+
+      #div {
+        margin-top: 5vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 20%;
+        width: 60%;
+        border: 4px solid black;
+        border-radius: 40px;
+        background-color: #dd4457;
+        opacity: 0.8;
+        font-size: 16px;
+        color: white;
+      }
+
+      #place {
+        margin-right: 5vw;
+      }
+
+      #time {
+        margin-left: 5vw;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="section">
+      <h1>World Clock</h1>
+      <input type="text" id="first" placeholder="continent" value="Asia" />
+      <input type="text" id="second" placeholder="city" value="Kolkata" />
+      <button onclick="func()">Time</button>
+    </section>
+    <div id="div">
+      <h2 id="place"></h2>
+      <h2 id="time"></h2>
+    </div>
+    <script>
+      let T = document.getElementById("time");
+      let P = document.getElementById("place");
+      let I1 = document.getElementById("first");
+      let I2 = document.getElementById("second");
+      let continent = "";
+      let city = "";
+
+      function func() {
+        if (I1.value.length == 0 || I2.value.length == 0) {
+          alert("INPUT NOT GIVEN");
+        }
+
+        continent = "";
+        city = "";
+
+        continent = continent + I1.value.split("")[0].toUpperCase();
+        city = city + I2.value.split("")[0].toUpperCase();
+
+        for (let i = 1; i < I1.value.length; i++) {
+          continent = continent + I1.value.split("")[i].toLowerCase();
+        }
+
+        for (let i = 1; i < I2.value.length; i++) {
+          city = city + I2.value.split("")[i].toLowerCase();
+        }
+
+        console.log(continent);
+        console.log(city);
+
+        fetchJSONData();
+      }
+
+      function fetchJSONData() {
+        fetch(`http://worldtimeapi.org/api/timezone/${continent}/${city}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            T.innerHTML = data.datetime.split("T")[1].split(".")[0];
+            P.innerHTML = city;
+          })
+          .catch((error) => {
+            alert("INPUT NOT CORRECT OR MISSING");
+            console.error("Error fetching JSON data:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
