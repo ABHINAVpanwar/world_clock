@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <link rel="icon" type="image/x-icon" href="icon.png" />
     <title>World Clock</title>
     <style>
@@ -35,7 +38,7 @@
       }
 
       h1 {
-        font-size: 40px;
+        font-size: 32px;
       }
 
       input {
@@ -167,6 +170,9 @@
         for (let i = 1; i < I2.value.length; i++) {
           city = city + I2.value.split("")[i].toLowerCase();
         }
+
+        continent = continent.trim();
+        city = city.trim();
 
         console.log(continent);
         console.log(city);
