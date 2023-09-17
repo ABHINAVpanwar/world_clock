@@ -150,7 +150,7 @@
       let I2 = document.getElementById("second");
       let continent = "";
       let city = "";
-      let day = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+      let day = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
       function func() {
         if (I1.value.length == 0 || I2.value.length == 0) {
@@ -187,7 +187,7 @@
             console.log(data);
             T.innerHTML = data.datetime.split("T")[1].split(".")[0];
             P.innerHTML = city;
-            D.innerHTML = day[data.day_of_week - 1];
+            D.innerHTML = day[data.day_of_week];
           })
           .catch((error) => {
             alert("INPUT MISSING OR INCORRECT");
